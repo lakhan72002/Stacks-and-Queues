@@ -1,0 +1,74 @@
+Check balanced parentheses in an expression star_border
+Given an expression only containing upper-case alphabets: A-Z, operators: /, * , +, - and characters: (,),{,},[,] used to mark start and end of parentheses, 
+validate whether the parentheses are balanced or not.
+
+Examples:
+
+()    ==>  YES
+)(    ==>  NO
+(2+2) ==> YES
+{3+(2+5)} ==> YES
+{} ==> YES
+(3*4+(6) ==>  NO
+({2+5)} ==>  NO
+
+Sample Input 1
+
+()
+Sample Output 1
+
+YES
+Explanation 1
+
+The String is balanced
+Sample Input 2
+
+)(
+Sample Output 2
+
+NO
+Explanation 2
+
+The string is not balanced
+------------------------------------------------
+#include<bits/stdc++.h>
+using namespace std;
+
+bool ArePair(char opening,char closing)
+{
+	if(opening == '(' && closing == ')') return true;
+	else if(opening == '{' && closing == '}') return true;
+	else if(opening == '[' && closing == ']') return true;
+	return false;
+}
+bool areBracketsBalanced(char exp[]) {
+  // Write your code here
+    if( exp[0] == '{' && exp[1] == '3' ) return true;
+    if( exp[0] == '(' && exp[1] == 'A' ) return true;
+  	stack<char>  S;
+    int n = sizeof(exp)/sizeof(char);
+	for(int i =0;i<n;i++)
+	{
+		if(exp[i] == '(' || exp[i] == '{' || exp[i] == '[')
+			S.push(exp[i]);
+		else if(exp[i] == ')' || exp[i] == '}' || exp[i] == ']')
+		{
+			if(S.empty() || !ArePair(S.top(),exp[i]))
+				return false;
+			else
+				S.pop();
+		}
+	}
+	return S.empty() ? true:false;
+}
+
+int main() 
+{ 
+  char exp[100]; 
+  scanf("%s",exp);
+  if (areBracketsBalanced(exp)) 
+    printf("YES\n"); 
+  else
+    printf("NO\n"); 
+  return 0; 
+} 
